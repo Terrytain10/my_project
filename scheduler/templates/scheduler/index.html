@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEN 310 - Personal Scheduling App</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #fdfbf7; color: #333; }
+        h1, h2 { color: #2c3e50; }
+        form { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #2980b9; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #1f618d; }
+        ul { list-style: none; padding: 0; }
+        li { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <h1>Personal Scheduling App</h1>
+    <p>SEN 310 Assignment</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Book an Appointment</h2>
+        <input type="text" name="title" placeholder="Event Title" required>
+        <textarea name="description" placeholder="Description"></textarea>
+        <input type="date" name="date" required>
+        <input type="time" name="time" required>
+        <button type="submit">Save Appointment</button>
+    </form>
+
+    <h2>Your Appointments</h2>
+    {% if appointments %}
+        <ul>
+            {% for appt in appointments %}
+                <li>
+                    <strong>{{ appt.title }}</strong> ({{ appt.date }} at {{ appt.time }})<br>
+                    {{ appt.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No appointments scheduled yet.</p>
+    {% endif %}
+</body>
+</html>
